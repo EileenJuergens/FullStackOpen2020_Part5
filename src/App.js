@@ -7,7 +7,8 @@ import loginService from './services/login';
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [infoMessage, setInfoMessage] = useState(null);
+  const [error, setError] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
@@ -44,9 +45,14 @@ const App = () => {
       .create(blogObject)
       .then((returnedBlog) => {
         setBlogs(blogs.concat(returnedBlog))
+        setError(false)
+        setInfoMessage(`The new blog "${newTitle}" by ${newAuthor} was added`)
         setNewTitle('')
         setNewAuthor('')
         setNewUrl('')
+        setTimeout(() => {
+          setInfoMessage(null)
+        }, 5000)
       })
   }
 
@@ -68,9 +74,10 @@ const App = () => {
       setUsername('');
       setPassword('');
     } catch (error) {
-      setErrorMessage('Wrong credentials');
+      setError(true)
+      setInfoMessage('Wrong credentials');
       setTimeout(() => {
-        setErrorMessage(null)
+        setInfoMessage(null)
       }, 5000)
     }
   }
@@ -81,30 +88,32 @@ const App = () => {
   }
 
   const loginForm = () => (
-    <>
-      <h2>Login to blogs application</h2>
+    <div className='login-box'>
+      <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        <div>
-          username
+        <div className='login-input'>
           <input
             type='text'
-            value={username}
             name='username'
-            onChange={({ target }) => setUsername(target.value)}
-          />
+            id='username'
+            placeholder='Username'
+            value={username}
+            onChange={({ target }) => setUsername(target.value)} />
+          <label for='username'>Username</label>
         </div>
-        <div>
-          password
+        <div className='login-input'>
           <input
             type='password'
-            value={password}
             name='password'
-            onChange={({ target }) => setPassword(target.value)}
-          />
+            id='password'
+            placeholder='Password'
+            value={password}
+            onChange={({ target }) => setPassword(target.value)} />
+          <label for='password'>Password</label>
         </div>
-        <button type='submit'>login</button>
+        <button type='submit' className='login-button'>LOGIN</button>
       </form>
-    </>
+    </div>
   )
 
   const blogForm = () => (
@@ -125,7 +134,7 @@ const App = () => {
           onChange={handleAuthorChange}
         />
       </div>
-      <div>url: 
+      <div>url:
         <input
           type='text'
           value={newUrl}
@@ -152,7 +161,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={errorMessage} />
+      <Notification message={infoMessage} error={error} />
 
       {user === null
         ? loginForm()

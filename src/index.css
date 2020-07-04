@@ -1,15 +1,126 @@
-  
+body {
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background: #efeded96;
+}
+
+html {
+  height: 100%;
+}
+
 h1 {
   color: green;
   font-style: italic;
 }
 
 .error {
-color: red;
-background: lightgrey;
-font-size: 20px;
-border-style: solid;
-border-radius: 5px;
-padding: 10px;
-margin-bottom: 10px;
+  color: #D8000C;
+  background-color: #FFBABA;
+  font-size: 20px;
+  border: 1px solid;
+  padding: 10px;
+  margin-bottom: 10px;
 }  
+
+.success {
+  color: #4F8A10;
+  background-color: #DFF2BF;
+  font-size: 20px;
+  border: 1px solid;
+  padding: 10px;
+  margin-bottom: 10px;
+}  
+
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(#141e30, #243b55);;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.login-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.login-input input {
+  font-size: 16px;
+  padding: 10px 0px;
+  height: 56px;
+  border: none;
+  border-bottom: solid 1px #fff;
+  background: transparent;
+  min-width: 280px;
+  box-sizing: border-box;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
+  color: #fff;
+  font-weight: 400;
+  -webkit-appearance: none;
+}
+
+input:focus {
+  border-bottom: solid 1px #fff;
+  outline: 0;
+}
+
+.login-input {
+  position: relative;
+  margin-bottom: 10px;
+}
+.login-input label {
+  position: absolute;
+  color: #fff;
+  font-size: 12px;
+  top: calc(50% - 7px);
+  left: 0;
+  opacity: 0;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.login-input input:not(:placeholder-shown) {
+  padding: 28px 0px 12px 0px;
+}
+
+.login-input input:not(:placeholder-shown) + label {
+  -webkit-transform: translateY(-10px);
+  transform: translateY(-10px);
+  opacity: .7;
+}
+
+.login-label {
+  left: 25%;
+  top: 10px;
+  font-size: 18px;
+  font-weight: 200;
+  color: #fff;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+
+.login-input:focus:active {
+  display:block;
+  color: #fff;
+  top: -20px;
+  font-size: 10px;
+  transition: all 0.5s ease;
+}
+
+.login-button {
+  margin: 30px 0 0 0;
+  border: solid 1px #fff;
+  background-color: transparent;
+  padding: 10px 15px;
+  border-radius: 3px;
+  color: #fff;
+}
