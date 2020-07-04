@@ -11,7 +11,9 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
-
+  const [newTitle, setNewTitle] = useState('');
+  const [newAuthor, setNewAuthor] = useState('');
+  const [newUrl, setNewUrl] = useState('');
 
   useEffect(() => {
     blogService
@@ -29,6 +31,24 @@ const App = () => {
     }
   }, [])
 
+  const addBlog = (event) => {
+    event.preventDefault();
+
+    const blogObject = {
+      title: newTitle,
+      author: newAuthor,
+      url: newUrl,
+    }
+
+    blogService
+      .create(blogObject)
+      .then((returnedBlog) => {
+        setBlogs(blogs.concat(returnedBlog))
+        setNewTitle('')
+        setNewAuthor('')
+        setNewUrl('')
+      })
+  }
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -88,10 +108,47 @@ const App = () => {
   )
 
   const blogForm = () => (
-    <div>
-      Implement here the add new blog form
-    </div>
+    <form onSubmit={addBlog}>
+      <div>title:
+        <input
+          type='text'
+          value={newTitle}
+          name='title'
+          onChange={handleTitleChange}
+        />
+      </div>
+      <div>author:
+        <input
+          type='text'
+          value={newAuthor}
+          name='author'
+          onChange={handleAuthorChange}
+        />
+      </div>
+      <div>url: 
+        <input
+          type='text'
+          value={newUrl}
+          name='url'
+          onChange={handleUrlChange}
+        />
+
+      </div>
+      <button type='submit'>create</button>
+    </form>
   )
+
+  const handleTitleChange = (event) => {
+    setNewTitle(event.target.value)
+  }
+
+  const handleAuthorChange = (event) => {
+    setNewAuthor(event.target.value)
+  }
+
+  const handleUrlChange = (event) => {
+    setNewUrl(event.target.value)
+  }
 
   return (
     <div>
@@ -105,6 +162,7 @@ const App = () => {
             <p>{user.name} is logged in
               <button onClick={handleLogout}>logout</button>
             </p>
+            <h3>Create a new blog</h3>
             {blogForm()}
             <ul>
               {blogs.map(blog =>
