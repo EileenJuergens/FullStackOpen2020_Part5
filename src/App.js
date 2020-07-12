@@ -15,6 +15,7 @@ const App = () => {
   const [newTitle, setNewTitle] = useState('');
   const [newAuthor, setNewAuthor] = useState('');
   const [newUrl, setNewUrl] = useState('');
+  const [addFormIsShown, setAddFormIsShown] = useState(false);
 
   useEffect(() => {
     blogService
@@ -53,6 +54,7 @@ const App = () => {
         setTimeout(() => {
           setInfoMessage(null)
         }, 5000)
+        setAddFormIsShown(false)
       })
   }
 
@@ -75,7 +77,7 @@ const App = () => {
       setPassword('');
     } catch (error) {
       setError(true)
-      setInfoMessage('Wrong credentials');
+      setInfoMessage('❗️ Wrong credentials ❗️');
       setTimeout(() => {
         setInfoMessage(null)
       }, 5000)
@@ -89,7 +91,7 @@ const App = () => {
 
   const loginForm = () => (
     <div className='login-box'>
-      <h2>Login</h2>
+      <h2>LOGIN</h2>
       <form onSubmit={handleLogin}>
         <div className='login-input'>
           <input
@@ -117,34 +119,56 @@ const App = () => {
   )
 
   const blogForm = () => (
-    <form onSubmit={addBlog}>
-      <div>title:
-        <input
-          type='text'
-          value={newTitle}
-          name='title'
-          onChange={handleTitleChange}
-        />
-      </div>
-      <div>author:
-        <input
-          type='text'
-          value={newAuthor}
-          name='author'
-          onChange={handleAuthorChange}
-        />
-      </div>
-      <div>url:
-        <input
-          type='text'
-          value={newUrl}
-          name='url'
-          onChange={handleUrlChange}
-        />
+    <div className='login-box'>
+      <h2>Create a new blog</h2>
+      <form onSubmit={addBlog} >
+        <div className='login-input'>
+          <input
+            type='text'
+            value={newTitle}
+            name='title'
+            id='title'
+            placeholder='Title'
+            onChange={handleTitleChange}
+          />
+          <label for='title'>Title</label>
+        </div>
+        <div className='login-input'>
+          <input
+            type='text'
+            value={newAuthor}
+            name='author'
+            id='author'
+            placeholder='Author'
 
-      </div>
-      <button type='submit'>create</button>
-    </form>
+            onChange={handleAuthorChange}
+          />
+          <label for='author'>Author</label>
+        </div>
+        <div className='login-input'>
+          <input
+            type='text'
+            value={newUrl}
+            name='url'
+            id='url'
+            placeholder='Url'
+            onChange={handleUrlChange}
+          />
+          <label for='url'>Url</label>
+        </div>
+        <div className='login-button-container'>
+          <button
+            type='submit'
+            className='login-button'
+            >CREATE</button>
+          <button
+            type='button'
+            className='login-button'
+            onClick={() => setAddFormIsShown(false)}
+            >CANCEL</button>
+        </div>
+      </form>
+    </div>
   )
 
   const handleTitleChange = (event) => {
@@ -171,13 +195,18 @@ const App = () => {
             <p>{user.name} is logged in
               <button onClick={handleLogout}>logout</button>
             </p>
-            <h3>Create a new blog</h3>
-            {blogForm()}
-            <ul>
-              {blogs.map(blog =>
-                <Blog key={blog.id} blog={blog} />
-              )}
-            </ul>
+            {addFormIsShown === true
+              ? blogForm()
+              : (
+                <div>
+                <button
+                  className='create-toggle-button'
+                  onClick={() => setAddFormIsShown(true)}>Create a new blog</button>
+                  {blogs.map(blog =>
+                    <Blog key={blog.id} blog={blog} />
+                  )}
+                </div>)
+            }
           </div>
         )}
     </div>
