@@ -9,9 +9,13 @@ html {
   height: 100%;
 }
 
-h1 {
-  color: green;
-  font-style: italic;
+.header {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.header h2 {
+  margin: 0px;
 }
 
 .error {
@@ -34,7 +38,7 @@ h1 {
   text-align: center;
 }  
 
-.login-box {
+.form-box {
   width: 400px;
   padding: 30px;
   margin: 40px 30%;
@@ -44,7 +48,7 @@ h1 {
   border-radius: 10px;
 }
 
-.login-box h2 {
+.form-box h2 {
   margin: 0 0 20px;
   padding: 0;
   color: #fff;
@@ -52,7 +56,7 @@ h1 {
   letter-spacing: 5px;
 }
 
-.login-input input {
+.form-input input {
   font-size: 16px;
   margin-top: 12px;
   height: 40px;
@@ -81,11 +85,11 @@ input:focus {
   outline: 0;
 }
 
-.login-input {
+.form-input {
   position: relative;
   margin-bottom: 10px;
 }
-.login-input label {
+.form-input label {
   position: absolute;
   color: #fff;
   font-size: 12px;
@@ -96,11 +100,11 @@ input:focus {
   transition: all .3s ease;
 }
 
-.login-input input:not(:placeholder-shown) {
+.form-input input:not(:placeholder-shown) {
   padding: 28px 0px 12px 0px;
 }
 
-.login-input input:not(:placeholder-shown) + label {
+.form-input input:not(:placeholder-shown) + label {
   -webkit-transform: translateY(-10px);
   transform: translateY(-10px);
   opacity: .7;
@@ -116,7 +120,7 @@ input:focus {
   pointer-events: none;
 }
 
-.login-input:focus:active {
+.form-input:focus:active {
   display:block;
   color: #fff;
   top: -20px;
@@ -124,12 +128,12 @@ input:focus {
   transition: all 0.5s ease;
 }
 
-.login-button-container {
+.form-button-container {
   display: flex;
   justify-content: space-around;
 }
 
-.login-button {
+.form-button {
   margin: 30px 0 0 0;
   border: solid 1px #fff;
   background-color: transparent;
@@ -139,7 +143,7 @@ input:focus {
   outline: none;
 }
 
-.login-button:hover {
+.form-button:hover {
   background-color: #fff;
   color: #141e30;
 }

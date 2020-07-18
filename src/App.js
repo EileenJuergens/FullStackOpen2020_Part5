@@ -3,6 +3,7 @@ import Blog from './components/Blog';
 import Notification from './components/Notification';
 import blogService from './services/blogs';
 import loginService from './services/login';
+import BlogForm from './components/BlogForm';
 
 
 const App = () => {
@@ -12,9 +13,6 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
-  const [newTitle, setNewTitle] = useState('');
-  const [newAuthor, setNewAuthor] = useState('');
-  const [newUrl, setNewUrl] = useState('');
   const [addFormIsShown, setAddFormIsShown] = useState(false);
 
   useEffect(() => {
@@ -32,31 +30,6 @@ const App = () => {
       blogService.setToken(user.token);
     }
   }, [])
-
-  const addBlog = (event) => {
-    event.preventDefault();
-
-    const blogObject = {
-      title: newTitle,
-      author: newAuthor,
-      url: newUrl,
-    }
-
-    blogService
-      .create(blogObject)
-      .then((returnedBlog) => {
-        setBlogs(blogs.concat(returnedBlog))
-        setError(false)
-        setInfoMessage(`The new blog "${newTitle}" by ${newAuthor} was added`)
-        setNewTitle('')
-        setNewAuthor('')
-        setNewUrl('')
-        setTimeout(() => {
-          setInfoMessage(null)
-        }, 5000)
-        setAddFormIsShown(false)
-      })
-  }
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -90,10 +63,10 @@ const App = () => {
   }
 
   const loginForm = () => (
-    <div className='login-box'>
+    <div className='form-box'>
       <h2>LOGIN</h2>
       <form onSubmit={handleLogin}>
-        <div className='login-input'>
+        <div className='form-input'>
           <input
             type='text'
             name='username'
@@ -101,9 +74,9 @@ const App = () => {
             placeholder='Username'
             value={username}
             onChange={({ target }) => setUsername(target.value)} />
-          <label for='username'>Username</label>
+          <label htmlFor='username'>Username</label>
         </div>
-        <div className='login-input'>
+        <div className='form-input'>
           <input
             type='password'
             name='password'
@@ -111,76 +84,25 @@ const App = () => {
             placeholder='Password'
             value={password}
             onChange={({ target }) => setPassword(target.value)} />
-          <label for='password'>Password</label>
+          <label htmlFor='password'>Password</label>
         </div>
-        <button type='submit' className='login-button'>LOGIN</button>
+        <button type='submit' className='form-button'>LOGIN</button>
       </form>
     </div>
   )
 
-  const blogForm = () => (
-    <div className='login-box'>
-      <h2>Create a new blog</h2>
-      <form onSubmit={addBlog} >
-        <div className='login-input'>
-          <input
-            type='text'
-            value={newTitle}
-            name='title'
-            id='title'
-            placeholder='Title'
-            onChange={handleTitleChange}
-          />
-          <label for='title'>Title</label>
-        </div>
-        <div className='login-input'>
-          <input
-            type='text'
-            value={newAuthor}
-            name='author'
-            id='author'
-            placeholder='Author'
-
-            onChange={handleAuthorChange}
-          />
-          <label for='author'>Author</label>
-        </div>
-        <div className='login-input'>
-          <input
-            type='text'
-            value={newUrl}
-            name='url'
-            id='url'
-            placeholder='Url'
-            onChange={handleUrlChange}
-          />
-          <label for='url'>Url</label>
-        </div>
-        <div className='login-button-container'>
-          <button
-            type='submit'
-            className='login-button'
-            >CREATE</button>
-          <button
-            type='button'
-            className='login-button'
-            onClick={() => setAddFormIsShown(false)}
-            >CANCEL</button>
-        </div>
-      </form>
-    </div>
-  )
-
-  const handleTitleChange = (event) => {
-    setNewTitle(event.target.value)
-  }
-
-  const handleAuthorChange = (event) => {
-    setNewAuthor(event.target.value)
-  }
-
-  const handleUrlChange = (event) => {
-    setNewUrl(event.target.value)
+  const addBlog = (blogObject) => {
+    blogService
+    .create(blogObject)
+    .then((returnedBlog) => {
+      setBlogs(blogs.concat(returnedBlog))
+      setError(false)
+      setInfoMessage(`✅ The new blog "${blogObject.title}" by ${blogObject.author} was added ✅`)
+      setTimeout(() => {
+        setInfoMessage(null)
+      }, 5000)
+      setAddFormIsShown(false)
+    })
   }
 
   return (
@@ -190,24 +112,24 @@ const App = () => {
       {user === null
         ? loginForm()
         : (
-          <div>
-            <h2>Blogs</h2>
-            <p>{user.name} is logged in
-              <button onClick={handleLogout}>logout</button>
-            </p>
+          <>
+            <div className='header'>
+              <h2>Blogs</h2>
+              <p>{user.name} is logged in <button onClick={handleLogout}>logout</button></p>
+            </div>
             {addFormIsShown === true
-              ? blogForm()
+              ? <BlogForm createBlog={addBlog} setAddFormIsShown={setAddFormIsShown} />
               : (
                 <div>
-                <button
-                  className='create-toggle-button'
-                  onClick={() => setAddFormIsShown(true)}>Create a new blog</button>
+                  <button
+                    className='create-toggle-button'
+                    onClick={() => setAddFormIsShown(true)}>Create a new blog</button>
                   {blogs.map(blog =>
                     <Blog key={blog.id} blog={blog} />
                   )}
                 </div>)
             }
-          </div>
+          </>
         )}
     </div>
   )
