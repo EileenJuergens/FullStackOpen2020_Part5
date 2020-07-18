@@ -153,8 +153,8 @@ input:focus {
   margin: 20px;
   padding: 12px 20px;
   box-shadow: 0 5px 5px rgba(210, 208, 208, 0.3);
-  display:flex;
-    justify-content:center;
+  /* display: flex;
+  justify-content: start; */
 }
 
 .single-blog:focus {
@@ -162,13 +162,7 @@ input:focus {
 }
 
 .single-blog p {
-  width: 33%;
   margin: 0px;
-}
-
-
-.single-blog p:first-child {
-  font-weight: bold;
 }
 
 .create-toggle-button {
