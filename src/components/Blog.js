@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Blog = ({ blog, updateBlog }) => {
+const Blog = ({ blog, updateBlog, deleteBlog, loggedInUser }) => {
   const [detailsAreShown, setDetailsAreShown] = useState(false);
 
   const toggleView = () => {
@@ -8,7 +8,15 @@ const Blog = ({ blog, updateBlog }) => {
   }
 
   const increaseLikes = () => {
-    updateBlog({ ...blog, likes: blog.likes + 1 })
+    updateBlog({ ...blog, likes: blog.likes + 1 });
+  }
+
+  const removeBlog = () => {
+    const result = window.confirm(`Remove blog "${blog.title}" by ${blog.author}`);
+  
+    if (result === true) {
+      deleteBlog(blog.id);
+    }
   }
 
   return (
@@ -20,6 +28,9 @@ const Blog = ({ blog, updateBlog }) => {
           <p>{blog.url}</p>
           <p>likes {blog.likes} <button onClick={increaseLikes}>like</button></p>
           <p>{blog.user.name}</p>
+          {loggedInUser.name === blog.user.name && (
+            <button onClick={removeBlog}>remove</button>
+          )}
         </>
       )}
     </div>

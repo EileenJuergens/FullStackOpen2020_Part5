@@ -110,6 +110,11 @@ const App = () => {
       .update(blogObject.id, blogObject)
   }
 
+  const deleteBlog = (id) => {
+    blogService
+      .deleteOne(id)
+  }
+
   return (
     <div>
       <Notification message={infoMessage} error={error} />
@@ -130,7 +135,12 @@ const App = () => {
                     className='create-toggle-button'
                     onClick={() => setAddFormIsShown(true)}>Create a new blog</button>
                   {blogs.sort((a,b) => a.likes - b.likes).map(blog =>
-                    <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
+                    <Blog
+                      key={blog.id}
+                      blog={blog}
+                      updateBlog={updateBlog}
+                      deleteBlog={deleteBlog}
+                      loggedInUser={user}/>
                   )}
                 </div>)
             }
