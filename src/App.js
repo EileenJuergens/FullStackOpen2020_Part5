@@ -19,7 +19,7 @@ const App = () => {
     blogService
       .getAll()
       .then((blogs) => setBlogs(blogs))
-  }, [])
+  }, [blogs])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser');
@@ -105,6 +105,11 @@ const App = () => {
     })
   }
 
+  const updateBlog = (blogObject) => {
+    blogService
+      .update(blogObject.id, blogObject)
+  }
+
   return (
     <div>
       <Notification message={infoMessage} error={error} />
@@ -125,7 +130,7 @@ const App = () => {
                     className='create-toggle-button'
                     onClick={() => setAddFormIsShown(true)}>Create a new blog</button>
                   {blogs.map(blog =>
-                    <Blog key={blog.id} blog={blog} />
+                    <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
                   )}
                 </div>)
             }

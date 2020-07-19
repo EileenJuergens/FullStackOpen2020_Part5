@@ -153,12 +153,7 @@ input:focus {
   margin: 20px;
   padding: 12px 20px;
   box-shadow: 0 5px 5px rgba(210, 208, 208, 0.3);
-  /* display: flex;
-  justify-content: start; */
-}
-
-.single-blog:focus {
-  outline: none
+  outline: none;
 }
 
 .single-blog p {
