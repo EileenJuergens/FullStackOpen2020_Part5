@@ -129,7 +129,7 @@ const App = () => {
                   <button
                     className='create-toggle-button'
                     onClick={() => setAddFormIsShown(true)}>Create a new blog</button>
-                  {blogs.map(blog =>
+                  {blogs.sort((a,b) => a.likes - b.likes).map(blog =>
                     <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
                   )}
                 </div>)
