@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 
-const BlogForm = ({ createBlog, setAddFormIsShown}) => {
-  const [newTitle, setNewTitle] = useState('');
-  const [newAuthor, setNewAuthor] = useState('');
-  const [newUrl, setNewUrl] = useState('');
+const BlogForm = ({ createBlog, setAddFormIsShown }) => {
+  const [newTitle, setNewTitle] = useState('')
+  const [newAuthor, setNewAuthor] = useState('')
+  const [newUrl, setNewUrl] = useState('')
 
 
   const addBlog = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     createBlog({
       title: newTitle,
@@ -89,4 +89,4 @@ BlogForm.propTypes = {
   setAddFormIsShown: PropTypes.func.isRequired
 }
 
-export default BlogForm;
+export default BlogForm

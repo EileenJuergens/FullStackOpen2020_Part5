@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import Blog from './components/Blog';
-import Notification from './components/Notification';
-import blogService from './services/blogs';
-import loginService from './services/login';
-import BlogForm from './components/BlogForm';
+import React, { useState, useEffect } from 'react'
+import Blog from './components/Blog'
+import Notification from './components/Notification'
+import blogService from './services/blogs'
+import loginService from './services/login'
+import BlogForm from './components/BlogForm'
 
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [infoMessage, setInfoMessage] = useState(null);
-  const [error, setError] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
-  const [addFormIsShown, setAddFormIsShown] = useState(false);
+  const [blogs, setBlogs] = useState([])
+  const [infoMessage, setInfoMessage] = useState(null)
+  const [error, setError] = useState(false)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
+  const [addFormIsShown, setAddFormIsShown] = useState(false)
 
   useEffect(() => {
     blogService
@@ -22,35 +22,35 @@ const App = () => {
   }, [blogs])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser');
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
 
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setUser(user);
-      blogService.setToken(user.token);
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      blogService.setToken(user.token)
     }
   }, [])
 
   const handleLogin = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     try {
       const user = await loginService.login({
         username,
         password,
-      });
+      })
 
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
       )
 
-      blogService.setToken(user.token);
-      setUser(user);
-      setUsername('');
-      setPassword('');
+      blogService.setToken(user.token)
+      setUser(user)
+      setUsername('')
+      setPassword('')
     } catch (error) {
       setError(true)
-      setInfoMessage('❗️ Wrong credentials ❗️');
+      setInfoMessage('❗️ Wrong credentials ❗️')
       setTimeout(() => {
         setInfoMessage(null)
       }, 5000)
@@ -58,7 +58,7 @@ const App = () => {
   }
 
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedBlogappUser');
+    window.localStorage.removeItem('loggedBlogappUser')
     setUser(null)
   }
 
@@ -93,16 +93,16 @@ const App = () => {
 
   const addBlog = (blogObject) => {
     blogService
-    .create(blogObject)
-    .then((returnedBlog) => {
-      setBlogs(blogs.concat(returnedBlog))
-      setError(false)
-      setInfoMessage(`✅ The new blog "${blogObject.title}" by ${blogObject.author} was added ✅`)
-      setTimeout(() => {
-        setInfoMessage(null)
-      }, 5000)
-      setAddFormIsShown(false)
-    })
+      .create(blogObject)
+      .then((returnedBlog) => {
+        setBlogs(blogs.concat(returnedBlog))
+        setError(false)
+        setInfoMessage(`✅ The new blog "${blogObject.title}" by ${blogObject.author} was added ✅`)
+        setTimeout(() => {
+          setInfoMessage(null)
+        }, 5000)
+        setAddFormIsShown(false)
+      })
   }
 
   const updateBlog = (blogObject) => {
@@ -134,13 +134,13 @@ const App = () => {
                   <button
                     className='create-toggle-button'
                     onClick={() => setAddFormIsShown(true)}>Create a new blog</button>
-                  {blogs.sort((a,b) => a.likes - b.likes).map(blog =>
+                  {blogs.sort((a, b) => a.likes - b.likes).map(blog =>
                     <Blog
                       key={blog.id}
                       blog={blog}
                       updateBlog={updateBlog}
                       deleteBlog={deleteBlog}
-                      loggedInUser={user}/>
+                      loggedInUser={user} />
                   )}
                 </div>)
             }

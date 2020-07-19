@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable linebreak-style */
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 
 const Blog = ({ blog, updateBlog, deleteBlog, loggedInUser }) => {
-  const [detailsAreShown, setDetailsAreShown] = useState(false);
+  const [detailsAreShown, setDetailsAreShown] = useState(false)
 
   const toggleView = () => {
     setDetailsAreShown(!detailsAreShown)
   }
 
   const increaseLikes = () => {
-    updateBlog({ ...blog, likes: blog.likes + 1 });
+    updateBlog({ ...blog, likes: blog.likes + 1 })
   }
 
   const removeBlog = () => {
-    const result = window.confirm(`Remove blog "${blog.title}" by ${blog.author}`);
-  
+    const result = window.confirm(`Remove blog "${blog.title}" by ${blog.author}`)
+
     if (result === true) {
-      deleteBlog(blog.id);
+      deleteBlog(blog.id)
     }
   }
 
