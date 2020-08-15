@@ -15,11 +15,11 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [addFormIsShown, setAddFormIsShown] = useState(false)
 
-  useEffect(() => {
-    blogService
-      .getAll()
-      .then((blogs) => setBlogs(blogs))
-  }, [blogs])
+  // useEffect(() => {
+  //   blogService
+  //     .getAll()
+  //     .then((blogs) => setBlogs(blogs))
+  // }, [blogs])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -29,6 +29,9 @@ const App = () => {
       setUser(user)
       blogService.setToken(user.token)
     }
+    blogService
+      .getAll()
+      .then((blogs) => setBlogs(blogs))
   }, [])
 
   const handleLogin = async (event) => {

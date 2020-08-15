@@ -24,12 +24,15 @@ const Blog = ({ blog, updateBlog, deleteBlog, loggedInUser }) => {
 
   return (
     <div className='single-blog'>
-      <p><b>{blog.title}</b> {blog.author} <button
-        onClick={toggleView}>{detailsAreShown ? 'hide' : 'view'}</button></p>
+      <div className='single-blog__short'>
+        <p data-testid='title'>{blog.title}</p>
+        <p data-testid='author'>{blog.author}</p>
+        <button onClick={toggleView}>{detailsAreShown ? 'hide' : 'view'}</button>
+      </div>
       {detailsAreShown && (
         <>
-          <p>{blog.url}</p>
-          <p>likes {blog.likes} <button onClick={increaseLikes}>like</button></p>
+          <p data-testid='url'>{blog.url}</p>
+          <p data-testid='likes'>likes {blog.likes} <button onClick={increaseLikes}>like</button></p>
           <p>{blog.user.name}</p>
           {loggedInUser.name === blog.user.name && (
             <button onClick={removeBlog}>remove</button>
@@ -42,9 +45,9 @@ const Blog = ({ blog, updateBlog, deleteBlog, loggedInUser }) => {
 
 Blog.propTypes = {
   blog: PropTypes.object.isRequired,
-  updateBlog: PropTypes.func.isRequired,
-  deleteBlog: PropTypes.func.isRequired,
-  loggedInUser: PropTypes.object.isRequired
+  updateBlog: PropTypes.func,
+  deleteBlog: PropTypes.func,
+  loggedInUser: PropTypes.object
 }
 
 

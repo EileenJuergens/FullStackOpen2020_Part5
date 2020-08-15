@@ -160,6 +160,22 @@ input:focus {
   margin: 0px;
 }
 
+.single-blog__short {
+  display: flex;
+  justify-content: row;
+}
+
+.single-blog__short p:first-child {
+  font-weight: bold;
+}
+
+.single-blog__short p {
+  margin-right: 10px;
+}
+.single-blog__short p:first-child {
+  font-weight: bold;
+}
+
 .create-toggle-button {
   margin: 20px;
   background: linear-gradient(#141e30, #243b55);
