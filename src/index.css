@@ -165,6 +165,7 @@ input:focus {
   justify-content: row;
 }
 
+
 .single-blog__short p:first-child {
   font-weight: bold;
 }
@@ -172,8 +173,18 @@ input:focus {
 .single-blog__short p {
   margin-right: 10px;
 }
+
 .single-blog__short p:first-child {
   font-weight: bold;
+}
+
+.likes__short {
+  display: flex;
+  justify-content: row;
+}
+
+.likes__short p {
+  margin-right: 10px;
 }
 
 .create-toggle-button {

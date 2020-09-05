@@ -7,7 +7,7 @@ const Blog = ({ blog, updateBlog, deleteBlog, loggedInUser }) => {
   const [detailsAreShown, setDetailsAreShown] = useState(false)
 
   const toggleView = () => {
-    setDetailsAreShown(!detailsAreShown)
+    setDetailsAreShown(detailsAreShown => !detailsAreShown)
   }
 
   const increaseLikes = () => {
@@ -32,8 +32,11 @@ const Blog = ({ blog, updateBlog, deleteBlog, loggedInUser }) => {
       {detailsAreShown && (
         <>
           <p data-testid='url'>{blog.url}</p>
-          <p data-testid='likes'>likes {blog.likes} <button onClick={increaseLikes}>like</button></p>
-          <p>{blog.user.name}</p>
+          <div className='likes__short'>
+            <p data-testid='likes'>likes {blog.likes}</p>
+            <button onClick={increaseLikes}>like</button>
+          </div>
+          <p data-testid='name'>{blog.user.name}</p>
           {loggedInUser.name === blog.user.name && (
             <button onClick={removeBlog}>remove</button>
           )}
