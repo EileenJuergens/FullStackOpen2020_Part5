@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import Blog from './components/Blog'
-import Notification from './components/Notification'
-import blogService from './services/blogs'
-import loginService from './services/login'
-import BlogForm from './components/BlogForm'
+import React, { useState, useEffect } from 'react';
+import Blog from './components/Blog';
+import Notification from './components/Notification';
+import blogService from './services/blogs';
+import loginService from './services/login';
+import BlogForm from './components/BlogForm';
 
 
 const App = () => {
@@ -14,12 +14,6 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [addFormIsShown, setAddFormIsShown] = useState(false)
-
-  // useEffect(() => {
-  //   blogService
-  //     .getAll()
-  //     .then((blogs) => setBlogs(blogs))
-  // }, [blogs])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -111,11 +105,22 @@ const App = () => {
   const updateBlog = (blogObject) => {
     blogService
       .update(blogObject.id, blogObject)
+      .then(() => {
+        const newBlogs = blogs.map((blog) => {
+          if (blog.id === blogObject.id) return blogObject
+          return blog
+        })
+        setBlogs(newBlogs)
+      })
   }
 
   const deleteBlog = (id) => {
     blogService
       .deleteOne(id)
+      .then(() => {
+        const newBlogs = blogs.filter((blog) => blog.id !== id)
+        setBlogs(newBlogs)
+      })
   }
 
   return (

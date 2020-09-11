@@ -53,3 +53,21 @@ test('Click on view button will show hidden content', () => {
   expect(queryByTestId(/url/i).textContent).toBe('www.test.com')
   expect(queryByTestId(/likes/i).textContent).toBe('likes 3')
 })
+
+test('Click twice on like, will increase the like by two more', () => {
+  const { queryByTestId, getByText } = render(
+    <Blog
+      blog={blog}
+      loggedInUser={loggedInUser}/>
+  )
+
+  fireEvent.click(getByText('view'))
+
+  expect(queryByTestId(/likes/i).textContent).toBe('likes 3')
+
+  // fireEvent.click(getByText('like'))
+  // fireEvent.click(getByText('like'))
+
+  // expect(queryByTestId(/likes/i).textContent).toBe('likes 5')
+
+})
