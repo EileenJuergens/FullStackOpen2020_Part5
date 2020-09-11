@@ -83,7 +83,7 @@ const App = () => {
             onChange={({ target }) => setPassword(target.value)} />
           <label htmlFor='password'>Password</label>
         </div>
-        <button type='submit' className='form-button'>LOGIN</button>
+        <button type='submit' id="login-button" className='form-button'>LOGIN</button>
       </form>
     </div>
   )
