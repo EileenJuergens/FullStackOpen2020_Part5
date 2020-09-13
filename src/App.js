@@ -133,7 +133,7 @@ const App = () => {
           <>
             <div className='header'>
               <h2>Blogs</h2>
-              <p>{user.name} is logged in <button onClick={handleLogout}>logout</button></p>
+              <p>{user.name} is logged in <button id='logout-button' onClick={handleLogout}>logout</button></p>
             </div>
             {addFormIsShown === true
               ? <BlogForm createBlog={addBlog} setAddFormIsShown={setAddFormIsShown} />
