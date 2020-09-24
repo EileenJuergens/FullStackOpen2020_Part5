@@ -23,17 +23,17 @@ const Blog = ({ blog, updateBlog, deleteBlog, loggedInUser }) => {
   }
 
   return (
-    <div className='single-blog'>
+    <div className='single-blog' data-cy='blog'>
       <div className='single-blog__short'>
-        <p data-testid='title'>{blog.title}</p>
+        <p data-test-id='title'>{blog.title}</p>
         <p data-testid='author'>{blog.author}</p>
-        <button onClick={toggleView}>{detailsAreShown ? 'hide' : 'view'}</button>
+        <button id='view-hide-button' onClick={toggleView}>{detailsAreShown ? 'hide' : 'view'}</button>
       </div>
       {detailsAreShown && (
         <>
           <p data-testid='url'>{blog.url}</p>
           <div className='likes__short'>
-            <p data-testid='likes'>likes {blog.likes}</p>
+            <p data-cy='likes' data-testid='likes'>likes {blog.likes}</p>
             <button id='like-button' onClick={increaseLikes}>like</button>
           </div>
           <p data-testid='name'>{blog.user.name}</p>

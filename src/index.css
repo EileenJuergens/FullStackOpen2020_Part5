@@ -19,7 +19,7 @@ html {
 }
 
 .error {
-  color: #D8000C;
+  color: rgb(216,0,12);
   background-color: #FFBABA;
   font-size: 20px;
   border: 1px solid;
